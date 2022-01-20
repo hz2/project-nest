@@ -4,6 +4,7 @@ import { getConnectionOptions, Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CityInfoModule } from './city-info/city-info.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { CityInfoModule } from './city-info/city-info.module';
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
-    }), CityInfoModule],
+    }), CityInfoModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
