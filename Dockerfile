@@ -22,7 +22,7 @@ sed -i 's/\r//g' /entrypoint.sh && \
 echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d && \
 # npm install -q && \
 npm install &>/dev/null && \
-npm run build:${build_mode} && \
+npm run build && \
 npm cache verify && \
 chmod +x /entrypoint.sh
 
