@@ -1,34 +1,27 @@
-FROM --platform=$TARGETPLATFORM alpine
-ARG build_mode=dev
-# RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-RUN apk update && apk add --no-cache nginx nodejs npm supervisor && rm -rf /var/cache/apk/* 
+FROM node:alpine as builder
 
-# ENV NODE_ENV=production
-ENV HOST 0.0.0.0
+ENV NODE_ENV build
 
-RUN mkdir -p /app
-COPY ./ /app
-WORKDIR /app
+USER node
+WORKDIR /node
 
-RUN rm -rf /etc/nginx/nginx.conf
-ADD ./docker-config/nginx-${build_mode}.conf /etc/nginx/nginx.conf
-ADD ./docker-config/supervisord.conf /etc/supervisord.conf
-ADD ./docker-config/entrypoint.sh /entrypoint.sh
+COPY . /node
 
-RUN sed -i s/'npm run start'/'npm run start:'${build_mode}/g /etc/supervisord.conf && \
-sed -i 's/\r//g' /etc/supervisord.conf && \
-sed -i 's/\r//g' /entrypoint.sh && \
-echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d && \
-# npm install -q && \
-npm install &>/dev/null && \
-npm run build && \
-npm cache verify && \
-chmod +x /entrypoint.sh
+RUN npm ci \
+    && npm run build \
+    && npm prune --production
 
-# RUN cat /etc/nginx/nginx.conf
-# RUN cat /etc/supervisord.conf
+# ---
 
-EXPOSE 80
+FROM node:alpine
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+ENV NODE_ENV production
+
+USER node
+WORKDIR /node
+
+COPY --from=builder /node/package*.json /node/
+COPY --from=builder /node/node_modules/ /node/node_modules/
+COPY --from=builder /node/dist/ /node/dist/
+
+CMD ["node", "dist/main"]

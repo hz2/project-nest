@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CityInfoModule } from './city-info/city-info.module';
 import { UserModule } from './user/user.module';
+import { GraphModule } from './graph/graph.module';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { UserModule } from './user/user.module';
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
-    }), CityInfoModule, UserModule],
+    }), CityInfoModule, UserModule, GraphModule],
   controllers: [AppController],
   providers: [AppService],
 })
