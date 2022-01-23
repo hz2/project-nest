@@ -20,7 +20,8 @@ ENV NODE_ENV production
 
 WORKDIR /node
 
-COPY --from=builder /node/package*.json /node/
+# copy prod ormconfig
+COPY --from=builder /node/*.json /node/
 COPY --from=builder /node/node_modules/ /node/node_modules/
 COPY --from=builder /node/dist/ /node/dist/
 
