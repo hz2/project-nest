@@ -2,7 +2,6 @@ FROM node:alpine as builder
 
 ENV NODE_ENV build
 
-USER node
 WORKDIR /node
 
 COPY . /node
@@ -17,7 +16,6 @@ FROM node:alpine
 
 ENV NODE_ENV production
 
-USER node
 WORKDIR /node
 
 COPY --from=builder /node/package*.json /node/
