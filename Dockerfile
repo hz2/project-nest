@@ -6,6 +6,8 @@ WORKDIR /node
 
 COPY . /node
 
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm ci \
     && npm run build \
     && npm prune --production
