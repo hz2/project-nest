@@ -1,8 +1,21 @@
 import { Module } from '@nestjs/common';
-import { GraphService } from './graph.service';
-import { GraphResolver } from './graph.resolver';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 
 @Module({
-  providers: [GraphResolver, GraphService]
+  imports: [
+    GraphQLModule.forRoot({
+      debug: false,
+      playground: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+    }),
+    // GraphQLModule.forRootAsync({
+    //   useFactory: () => ({
+    //     typePaths: ['./**/*.graphql'],
+    //   }),
+    // }),
+  ],
+  // providers: [GraphResolver, GraphService]
 })
-export class GraphModule {}
+export class GraphModule { }

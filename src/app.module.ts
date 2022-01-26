@@ -5,7 +5,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CityInfoModule } from './city-info/city-info.module';
 import { UserModule } from './user/user.module';
-import { GraphModule } from './graph/graph.module';
+// import { GraphModule } from './graph/graph.module';
+import { ChatModule } from './chat/chat.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { RecipesModule } from './recipes/recipes.module';
 
 @Module({
   imports: [
@@ -14,7 +17,15 @@ import { GraphModule } from './graph/graph.module';
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
-    }), CityInfoModule, UserModule, GraphModule],
+    }), CityInfoModule, UserModule, ChatModule ,
+  
+  
+    RecipesModule,
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: 'schema.gql',
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
