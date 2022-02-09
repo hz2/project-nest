@@ -8,7 +8,9 @@ import { UserModule } from './user/user.module';
 // import { GraphModule } from './graph/graph.module';
 import { ChatModule } from './chat/chat.module';
 import { GraphQLModule } from '@nestjs/graphql';
-import { RecipesModule } from './recipes/recipes.module';
+// import { RecipesModule } from './recipes/recipes.module';
+// import { GraphModule } from './graph/graph.module';
+import { TodosModule } from './todos/todos.module';
 
 @Module({
   imports: [
@@ -20,11 +22,15 @@ import { RecipesModule } from './recipes/recipes.module';
     }), CityInfoModule, UserModule, ChatModule ,
   
   
-    RecipesModule,
+    // RecipesModule,
+    // GraphModule,
     GraphQLModule.forRoot({
-      installSubscriptionHandlers: true,
+      playground: true,
+      debug: true,
+      // installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),
+    TodosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
