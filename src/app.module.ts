@@ -10,7 +10,7 @@ import { ChatModule } from './chat/chat.module';
 import { GraphQLModule } from '@nestjs/graphql';
 // import { RecipesModule } from './recipes/recipes.module';
 // import { GraphModule } from './graph/graph.module';
-import { TodosModule } from './todos/todos.module';
+import { CountryModule } from './country/country.module';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { TodosModule } from './todos/todos.module';
       // installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),
-    TodosModule,
+    CountryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
