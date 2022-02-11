@@ -4,7 +4,7 @@ import {
     NotFoundException,
   } from '@nestjs/common';
   import { InjectRepository } from '@nestjs/typeorm';
-  import { Repository } from 'typeorm';
+  import { Not, Repository } from 'typeorm';
   import { NewCountryInput } from './dto/new-country.input';
   import { Country } from './entities/country';
   
@@ -16,6 +16,17 @@ import {
   
     public async getAllCountrys(): Promise<Country[]> {
       const countrys = await this.countryRepository.find({});
+  
+      if (!countrys) throw new NotFoundException();
+  
+      return countrys;
+    }
+
+    public async getAllFlags(): Promise<Country[]> {
+      const countrys = await this.countryRepository.find({
+        // emoji: Not(""),
+        emoji:"",
+      });
   
       if (!countrys) throw new NotFoundException();
   

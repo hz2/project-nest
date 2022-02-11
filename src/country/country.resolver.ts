@@ -13,6 +13,13 @@ export class CountryResolver {
       throw err;
     });
   }
+  
+  @Query(() => [Country])
+  public async flag(): Promise<Country[]> {
+    return await this.CountryService.getAllFlags().catch((err) => {
+      throw err;
+    });
+  }
 
   @Mutation(() => Country)
   public async addNewCountry(
