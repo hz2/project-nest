@@ -26,11 +26,7 @@ import {
       const country = await this.countryRepository.find({
         iso: iso
       })
-
-      console.log( iso , country)
-
-      const r = country[0]
-  
+      const r = country[0]  
       if (!r) throw new NotFoundException();  
       return r;
     }
