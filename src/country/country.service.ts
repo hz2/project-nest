@@ -14,7 +14,7 @@ import {
       @InjectRepository(Country) private countryRepository: Repository<Country>,
     ) {}
   
-    public async getAllCountrys(): Promise<Country[]> {
+    public async getAllCountry(): Promise<Country[]> {
       const countrys = await this.countryRepository.find({});
   
       if (!countrys) throw new NotFoundException();
@@ -22,10 +22,22 @@ import {
       return countrys;
     }
 
-    public async getAllFlags(): Promise<Country[]> {
+    public async findCountryByIso(iso:string): Promise<Country> {
+      const country = await this.countryRepository.find({
+        iso: iso
+      })
+
+      console.log( iso , country)
+
+      const r = country[0]
+  
+      if (!r) throw new NotFoundException();  
+      return r;
+    }
+
+    public async getAllCurrency(): Promise<Country[]> {
       const countrys = await this.countryRepository.find({
-        // emoji: Not(""),
-        emoji:"",
+        currency: Not(""),
       });
   
       if (!countrys) throw new NotFoundException();

@@ -24,7 +24,8 @@ scalar DateTime
 
 type Query {
   countrys: [Country!]!
-  flag: [Country!]!
+  currency: [Country!]!
+  country(iso: String!): Country!
 }
 
 type Mutation {
