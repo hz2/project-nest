@@ -25,15 +25,6 @@ scalar DateTime
 type Query {
   countrys: [Country!]!
   currency: [Country!]!
-  country(iso: String!): Country!
-}
-
-type Mutation {
-  addNewCountry(newCountryData: NewCountryInput!): Country!
-}
-
-input NewCountryInput {
-  name: String!
-  priority: Int!
-  completed: Boolean!
+  country(iso: String): Country!
+  area(code: String!): [String!]!
 }

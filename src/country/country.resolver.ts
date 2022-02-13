@@ -22,8 +22,15 @@ export class CountryResolver {
   }
 
   @Query(() => Country)
-  public async country(@Args('iso') iso: string): Promise<Country> {
+  public async country(@Args('iso', { nullable: true }) iso?: string): Promise<Country> {
     return await this.CountryService.findCountryByIso(iso).catch((err) => {
+      throw err;
+    });
+  }
+
+  @Query(() => [String])
+  public async area(@Args('code') code: string): Promise<string[]> {
+    return await this.CountryService.getAreaByCode(code).catch((err) => {
       throw err;
     });
   }

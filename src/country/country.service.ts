@@ -1,51 +1,76 @@
 import {
-    Injectable,
-    InternalServerErrorException,
-    NotFoundException,
-  } from '@nestjs/common';
-  import { InjectRepository } from '@nestjs/typeorm';
-  import { Not, Repository } from 'typeorm';
-  import { NewCountryInput } from './dto/new-country.input';
-  import { Country } from './entities/country';
-  
-  @Injectable()
-  export class CountryService {
-    constructor(
-      @InjectRepository(Country) private countryRepository: Repository<Country>,
-    ) {}
-  
-    public async getAllCountry(): Promise<Country[]> {
-      const countrys = await this.countryRepository.find({});
-  
-      if (!countrys) throw new NotFoundException();
-  
-      return countrys;
-    }
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Not, Repository } from 'typeorm';
+import { NewCountryInput } from './dto/new-country.input';
+import { Country } from './entities/country';
+import { Xzqh } from './entities/xzqh';
 
-    public async findCountryByIso(iso:string): Promise<Country> {
-      const country = await this.countryRepository.find({
-        iso: iso
-      })
-      const r = country[0]  
-      if (!r) throw new NotFoundException();  
-      return r;
-    }
+@Injectable()
+export class CountryService {
+  constructor(
+    @InjectRepository(Country) private countryRepository: Repository<Country>,
+    @InjectRepository(Xzqh) private xzqhRepository: Repository<Xzqh>,
+  ) { }
 
-    public async getAllCurrency(): Promise<Country[]> {
-      const countrys = await this.countryRepository.find({
-        currency: Not(""),
-      });
-  
-      if (!countrys) throw new NotFoundException();
-  
-      return countrys;
-    }
-  
-    public async addCountry(newCountryData: NewCountryInput): Promise<Country> {
-      const newCountry = this.countryRepository.create(newCountryData);
-      await this.countryRepository.save(newCountry).catch((err) => {
-        new InternalServerErrorException();
-      });
-      return newCountry;
-    }
+  public async getAllCountry(): Promise<Country[]> {
+    const countrys = await this.countryRepository.find({});
+
+    if (!countrys) throw new NotFoundException();
+
+    return countrys;
   }
+
+  public async findCountryByIso(iso?: string): Promise<Country> {
+    const r = await this.countryRepository.findOne({
+      iso: iso
+    })
+    if (!r) throw new NotFoundException();
+    return r;
+  }
+
+  public async getAllCurrency(): Promise<Country[]> {
+    const countrys = await this.countryRepository.find({
+      currency: Not(""),
+    });
+
+    if (!countrys) throw new NotFoundException();
+
+    return countrys;
+  }
+
+  public async addCountry(newCountryData: NewCountryInput): Promise<Country> {
+    const newCountry = this.countryRepository.create(newCountryData);
+    await this.countryRepository.save(newCountry).catch((err) => {
+      new InternalServerErrorException();
+    });
+    return newCountry;
+  }
+
+  public async getAreaByCode(code: string): Promise<string[]> {
+    const province = code.substring(0, 2) + '0000'
+    const city = code.substring(0, 4) + '00'
+    const items = await this.xzqhRepository.find({
+      where: [
+        { code: province },
+        { code: city },
+        { code },
+      ],
+    });
+    if (!items) throw new NotFoundException();
+
+    return items.map(x => x.name);
+  }
+
+  // public async getAllArea(): Promise<Xzqh[]> {
+  //   const areas = await this.xzqhRepository.find({});
+
+  //   if (!areas) throw new NotFoundException();
+
+  //   return areas;
+  // }
+
+}
