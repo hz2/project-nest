@@ -23,7 +23,7 @@ jobs:
         registry: ghcr.io
         username: hz2
         password: ${{ secrets.GITHUB_TOKEN }}
-    - run: echo """${{ secrets.ORM_PROD }}""" | grep "" > ormconfig.json
+    - run: echo ${{ secrets.ORM_PROD }} | grep "" > ormconfig.json
     -
       name: Build and push
       uses: docker/build-push-action@v2
