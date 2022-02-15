@@ -2,7 +2,9 @@ name: Docker Package
 on:
   push:
     branches:
-        - master
+      - master
+    tags:
+      - 'v*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,7 +24,13 @@ jobs:
       with:
         registry: ghcr.io
         username: hz2
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GITHUB_TOKEN }}  
+    -
+      name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ghcr.io/${{ github.repository }}
     - run: echo ${{ secrets.ORM_PROD }} | grep "" > ormconfig.json
     -
       name: Build and push
@@ -30,8 +38,10 @@ jobs:
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: true
-        tags: |
-          ghcr.io/hz2/nest:latest
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        # tags: |
+        #   ghcr.io/hz2/nest:latest
 
     - run: curl -X POST "${{ secrets.TG_URL }}" -d "chat_id=${{ secrets.TG_CHAT_ID }}&text=project-nest%20%E7%9A%84%20docker%E5%8C%85%20%E5%8F%91%E5%B8%83%E6%88%90%E5%8A%9F%EF%BC%81"
