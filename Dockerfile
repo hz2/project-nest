@@ -22,7 +22,7 @@ WORKDIR /node
 
 # copy prod ormconfig
 COPY --from=builder /node/package*.json /node/
-# COPY --from=builder /node/ormconfig.prod.json /node/ormconfig.json
+COPY --from=builder /node/ormconfig.prod.json /node/ormconfig.json
 COPY --from=builder /node/node_modules/ /node/node_modules/
 COPY --from=builder /node/dist/ /node/dist/
 
