@@ -31,7 +31,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: ghcr.io/${{ github.repository }}
-    - run: echo ${{ secrets.ORM_PROD }} | grep "" > ormconfig.prod.json
+    - run: echo ${{ secrets.ORM_PROD }} | base64 -d | grep "" > ormconfig.prod.json
     -
       name: Build and push
       uses: docker/build-push-action@v2
