@@ -11,6 +11,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 // import { RecipesModule } from './recipes/recipes.module';
 // import { GraphModule } from './graph/graph.module';
 import { CountryModule } from './country/country.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { CountryModule } from './country/country.module';
       autoSchemaFile: 'schema.gql',
     }),
     CountryModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
