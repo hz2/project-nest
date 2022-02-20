@@ -5,7 +5,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/hz2/project-nest) 
 ## Package
 
-[Docker package](/pkgs/container/project-nest)
+[Docker package](https://github.com/hz2/project-nest/pkgs/container/project-nest)
 
 ## Installation
 
