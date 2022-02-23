@@ -12,18 +12,20 @@ RUN npm ci \
     && npm run build \
     && npm prune --production
 
+RUN mkdir -p /app
+# copy prod ormconfig
+COPY ./package*.json /app/
+COPY ./ormconfig.prod.json /app/ormconfig.json
+COPY ./node_modules/ /app/node_modules/
+COPY ./dist/ /app/dist/
 # ---
 
 FROM node:alpine
 
 ENV NODE_ENV production
 
-WORKDIR /node
+WORKDIR /app
 
-# copy prod ormconfig
-COPY --from=builder /node/package*.json /node/
-COPY --from=builder /node/ormconfig.prod.json /node/ormconfig.json
-COPY --from=builder /node/node_modules/ /node/node_modules/
-COPY --from=builder /node/dist/ /node/dist/
+COPY --from=builder /app/ /app/
 
 CMD ["node", "dist/main"]
