@@ -4,7 +4,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 const fs = require('fs')
 const path = require('path')
 
-const buf = fs.readFileSync(path.join(__dirname, '../database/phone.dat'))
+const buf = fs.readFileSync(path.resolve(__dirname, '../database/phone.dat'))
 const indexOffset = buf.readInt32LE(4, 4)
 const size = (buf.length - indexOffset) / 9
 const opMap = [
