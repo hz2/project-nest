@@ -1,10 +1,12 @@
 
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 const fs = require('fs')
 const path = require('path')
 
-const buf = fs.readFileSync(path.resolve(__dirname, '../database/phone.dat'))
+const file = path.resolve(__dirname, '../database/phone.dat')
+
+const buf = fs.readFileSync(file)
 const indexOffset = buf.readInt32LE(4, 4)
 const size = (buf.length - indexOffset) / 9
 const opMap = [
@@ -25,7 +27,7 @@ function formatResult(phone, opType, content) {
         province: arr[0],
         city: arr[1],
         zipcode: arr[2],
-        areacode: arr[3]
+        areacode: arr[3]?.replace('\u0000', ' ')
     }
 }
 
