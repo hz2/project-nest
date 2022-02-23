@@ -22,9 +22,20 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+"""phone """
+type CPhone {
+  phone: String!
+  op: String!
+  province: String!
+  city: String!
+  zipcode: String!
+  areacode: String!
+}
+
 type Query {
   countrys: [Country!]!
   currency: [Country!]!
   country(iso: String): Country!
   area(code: String!): [String!]!
+  phone(num: String): CPhone!
 }

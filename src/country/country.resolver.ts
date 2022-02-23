@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { NewCountryInput } from './dto/new-country.input';
 import { Country } from './entities/country';
+import { CPhone } from "./entities/phone";
 import { CountryService } from './country.service';
 
 @Resolver()
@@ -34,6 +35,14 @@ export class CountryResolver {
       throw err;
     });
   }
+
+  @Query(() => CPhone)
+  public async phone(@Args('num', { nullable: true }) num?: string): Promise<CPhone> {
+    return await this.CountryService.queryPhone(num).catch((err) => {
+      throw err;
+    });
+  }
+
 
   // @Mutation(() => Country)
   // public async addNewCountry(

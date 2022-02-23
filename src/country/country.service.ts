@@ -8,6 +8,8 @@ import { Not, Repository } from 'typeorm';
 import { NewCountryInput } from './dto/new-country.input';
 import { Country } from './entities/country';
 import { Xzqh } from './entities/xzqh';
+import { Phone, CPhone } from "./entities/phone";
+
 
 @Injectable()
 export class CountryService {
@@ -65,6 +67,11 @@ export class CountryService {
     return items.map(x => x.name);
   }
 
+  public async queryPhone(num: string): Promise<CPhone> {
+    const result = Phone(num)
+    if (!result) throw new NotFoundException();
+    return result
+  }
   // public async getAllArea(): Promise<Xzqh[]> {
   //   const areas = await this.xzqhRepository.find({});
 
