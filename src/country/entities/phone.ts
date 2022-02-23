@@ -25,7 +25,7 @@ function formatResult(phone, opType, content) {
         province: arr[0],
         city: arr[1],
         zipcode: arr[2],
-        areacode: arr[3]
+        areacode: arr[3] ?.replace('\u0000',' ')
     }
 }
 
