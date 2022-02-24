@@ -10,7 +10,7 @@ import { ChatModule } from './chat/chat.module';
 import { GraphQLModule } from '@nestjs/graphql';
 // import { RecipesModule } from './recipes/recipes.module';
 // import { GraphModule } from './graph/graph.module';
-import { CountryModule } from './country/country.module';
+import { LabModule } from './lab/lab.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
@@ -32,7 +32,7 @@ import { UsersModule } from './users/users.module';
       // installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),
-    CountryModule,
+    LabModule,
     AuthModule,
     UsersModule,
   ],

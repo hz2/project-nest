@@ -3,10 +3,10 @@ import { NewCountryInput } from './dto/new-country.input';
 import { Country } from './entities/country';
 import { CPhone } from "./entities/phone";
 import { Gua } from './entities/gua';
-import { LabService } from './country.service';
+import { LabService } from './lab.service';
 
 @Resolver()
-export class CountryResolver {
+export class LabResolver {
   constructor(private LabService: LabService) { }
 
   @Query(() => [Country])
