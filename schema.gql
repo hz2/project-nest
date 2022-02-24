@@ -22,6 +22,20 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Gua {
+  pkey: Float!
+  key: String!
+  qian: String!
+  dui: String!
+  li: String!
+  zhen: String!
+  xun: String!
+  kan: String!
+  gen: String!
+  kun: String!
+  remark: String!
+}
+
 """phone """
 type CPhone {
   phone: String!
@@ -36,6 +50,7 @@ type Query {
   countrys: [Country!]!
   currency: [Country!]!
   country(iso: String): Country!
+  gua(key: String): Gua!
   area(code: String!): [String!]!
   phone(num: String): CPhone!
 }

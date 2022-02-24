@@ -8,7 +8,7 @@ import {
 @Entity({ name: 'gua' })
 @ObjectType()
 export class Gua {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   @Field()
   pkey: number;
 
