@@ -10,15 +10,12 @@ COPY . /node
 
 RUN npm ci \
     && npm run build \
-    && npm prune --production
-
-RUN mkdir -p /app
-# copy prod ormconfig
-COPY ./package*.json /app/
-COPY ./ormconfig.prod.json /app/ormconfig.json
-COPY ./node_modules/ /app/node_modules/
-COPY ./dist/ /app/dist/
-# ---
+    && npm prune --production \
+    && mkdir -p /app \
+    && cp ./package*.json /app/ \
+    && cp ./ormconfig.prod.json /app/ormconfig.json \
+    && cp ./node_modules/ /app/node_modules/ -R \
+    && cp ./dist/ /app/dist/ -R
 
 FROM node:alpine
 
