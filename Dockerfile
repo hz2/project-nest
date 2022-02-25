@@ -17,6 +17,9 @@ RUN npm ci \
     && cp ./node_modules/ /app/node_modules/ -R \
     && cp ./dist/ /app/dist/ -R
 
+
+RUN ls -al /app/dist/lab/entities | grep phone
+
 FROM node:alpine
 
 ENV NODE_ENV production
@@ -24,5 +27,7 @@ ENV NODE_ENV production
 WORKDIR /app
 
 COPY --from=builder /app/ /app/
+
+RUN ls -al /app/dist/lab/entities | grep phone
 
 CMD ["node", "dist/main"]
