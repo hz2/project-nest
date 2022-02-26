@@ -2,6 +2,8 @@ FROM node:alpine as builder
 
 ENV NODE_ENV build
 
+RUN apk --no-cache add curl
+
 WORKDIR /node
 
 COPY . /node
