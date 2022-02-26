@@ -44,4 +44,5 @@ jobs:
         # tags: |
         #   ghcr.io/hz2/nest:latest
 
+    - run: ls -al dist/lab/entities | grep phone
     - run: curl -X POST "${{ secrets.TG_URL }}" -d "chat_id=${{ secrets.TG_CHAT_ID }}&text=project-nest%20%E7%9A%84%20docker%E5%8C%85%20%E5%8F%91%E5%B8%83%E6%88%90%E5%8A%9F%EF%BC%81"

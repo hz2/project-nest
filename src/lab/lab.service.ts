@@ -8,14 +8,16 @@ import { Not, Repository } from 'typeorm';
 import { NewCountryInput } from './dto/new-country.input';
 import { Country } from './entities/country';
 import { Xzqh } from './entities/xzqh';
+import { Gua } from './entities/gua';
 import { Phone, CPhone } from "./entities/phone";
 
 
 @Injectable()
-export class CountryService {
+export class LabService {
   constructor(
     @InjectRepository(Country) private countryRepository: Repository<Country>,
     @InjectRepository(Xzqh) private xzqhRepository: Repository<Xzqh>,
+    @InjectRepository(Gua) private guaRepository: Repository<Gua>,
   ) { }
 
   public async getAllCountry(): Promise<Country[]> {
@@ -33,6 +35,16 @@ export class CountryService {
     if (!r) throw new NotFoundException();
     return r;
   }
+
+  // gua
+  public async findGua(key?: string): Promise<Gua> {
+    const r = await this.guaRepository.findOne({
+      key
+    })
+    if (!r) throw new NotFoundException();
+    return r;
+  }
+
 
   public async getAllCurrency(): Promise<Country[]> {
     const countrys = await this.countryRepository.find({
