@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions, Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CityInfoModule } from './city-info/city-info.module';
 import { UserModule } from './user/user.module';
 // import { GraphModule } from './graph/graph.module';
 import { ChatModule } from './chat/chat.module';
@@ -13,6 +12,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { LabModule } from './lab/lab.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { PublicModule } from './public/public.module';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { UsersModule } from './users/users.module';
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
-    }), CityInfoModule, UserModule, ChatModule ,
+    }), UserModule, ChatModule ,
   
   
     // RecipesModule,
@@ -35,6 +35,7 @@ import { UsersModule } from './users/users.module';
     LabModule,
     AuthModule,
     UsersModule,
+    PublicModule,
   ],
   controllers: [AppController],
   providers: [AppService],
