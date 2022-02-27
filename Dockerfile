@@ -20,7 +20,7 @@ RUN npm ci \
     && cp ./ormconfig.prod.json /app/ormconfig.json \
     && cp ./node_modules/ /app/node_modules/ -R \
     && cp ./dist/ /app/dist/ -R \
-    && cp ./src/lab/entities/phone.db /app/dist/entities/phone.db
+    && cp ./src/lab/entities/phone.db /app/dist/lab/entities/phone.db -rf
 #    && curl https://raw.githubusercontent.com/hz2/project-nest/master/src/lab/entities/phone.db -o /app/dist/lab/entities/phone.db
 
 
