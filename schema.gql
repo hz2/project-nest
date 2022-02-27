@@ -50,7 +50,7 @@ type Query {
   countrys: [Country!]!
   currency: [Country!]!
   country(iso: String): Country!
-  gua(key: String): Gua!
+  gua(keyarr: [String!]): [Gua!]!
   area(code: String!): [String!]!
   phone(num: String): CPhone!
 }

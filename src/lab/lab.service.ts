@@ -37,9 +37,9 @@ export class LabService {
   }
 
   // gua
-  public async findGua(key?: string): Promise<Gua> {
-    const r = await this.guaRepository.findOne({
-      key
+  public async findGua(keyarr?: string[]): Promise<Gua[]> {
+    const r = await this.guaRepository.find({
+      where: keyarr.map(x => ({ key: x }))
     })
     if (!r) throw new NotFoundException();
     return r;

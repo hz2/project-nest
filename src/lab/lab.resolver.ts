@@ -5,6 +5,7 @@ import { CPhone } from "./entities/phone";
 import { Gua } from './entities/gua';
 import { LabService } from './lab.service';
 
+
 @Resolver()
 export class LabResolver {
   constructor(private LabService: LabService) { }
@@ -30,9 +31,9 @@ export class LabResolver {
     });
   }
 
-  @Query(() => Gua)
-  public async gua(@Args('key', { nullable: true }) key?: string): Promise<Gua> {
-    return await this.LabService.findGua(key).catch((err) => {
+  @Query(() => [Gua])
+  public async gua(@Args('keyarr', { type: () => [String], nullable: true }) keyarr?: string[]): Promise<Gua[]> {
+    return await this.LabService.findGua(keyarr).catch((err) => {
       throw err;
     });
   }

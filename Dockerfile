@@ -14,17 +14,15 @@ RUN ls -al /node/src/lab/entities | grep phone
 
 RUN npm ci \
     && npm run build \
-    && ls -al ./dist/lab/entities | grep phone \
     && npm prune --production \
     && mkdir -p /app \
     && cp ./package*.json /app/ \
     && cp ./ormconfig.prod.json /app/ormconfig.json \
     && cp ./node_modules/ /app/node_modules/ -R \
-    && cp ./dist/ /app/dist/ -R \
-    && ls -al /app/dist/lab/entities | grep phone \
-    && curl https://raw.githubusercontent.com/hz2/project-nest/master/src/lab/entities/phone.db -o /app/dist/lab/entities/phone.db
+    && cp ./src/lab/entities/phone.db /app/dist/entities/ \
+    && cp ./dist/ /app/dist/ -R
+#    && curl https://raw.githubusercontent.com/hz2/project-nest/master/src/lab/entities/phone.db -o /app/dist/lab/entities/phone.db
 
-RUN ls -al /app/dist/lab/entities | grep phone
 
 FROM node:alpine
 
