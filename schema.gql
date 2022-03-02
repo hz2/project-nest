@@ -38,8 +38,7 @@ type Gua {
 
 """guaset"""
 type GuaSet {
-  color: Gua!
-  text: Gua!
+  color: Gua
 }
 
 """phone """

@@ -54,12 +54,17 @@ export class Gua {
 
 }
 
-@ObjectType({ description: 'guaset' })
-export class GuaSet {
-  @Field(type => Gua)
-  color?: Gua;
 
-  @Field(type => Gua)
-  text?: Gua;
+
+@ObjectType({ description: 'guaset' })
+export abstract class  GuaSet {
+
+  @Field(() => Gua , { nullable: true })
+  color?: Gua;
+  // @Field(type => Gua)
+  // color?: Gua;
+
+  // @Field(type => Gua)
+  // text?: Gua;
 
 }
