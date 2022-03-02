@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { NewCountryInput } from './dto/new-country.input';
 import { Country } from './entities/country';
 import { CPhone } from "./entities/phone";
-import { Gua } from './entities/gua';
+import { Gua, GuaSet } from './entities/gua';
 import { LabService } from './lab.service';
 
 
@@ -31,8 +31,8 @@ export class LabResolver {
     });
   }
 
-  @Query(() => [Gua])
-  public async gua(@Args('keyarr', { type: () => [String], nullable: true }) keyarr?: string[]): Promise<Gua[]> {
+  @Query(() => GuaSet)
+  public async gua(@Args('keyarr', { type: () => [String], nullable: true }) keyarr?: string[]): Promise<GuaSet> {
     return await this.LabService.findGua(keyarr).catch((err) => {
       throw err;
     });

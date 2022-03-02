@@ -36,6 +36,12 @@ type Gua {
   remark: String!
 }
 
+"""guaset"""
+type GuaSet {
+  color: Gua!
+  text: Gua!
+}
+
 """phone """
 type CPhone {
   phone: String!
@@ -50,7 +56,7 @@ type Query {
   countrys: [Country!]!
   currency: [Country!]!
   country(iso: String): Country!
-  gua(keyarr: [String!]): [Gua!]!
+  gua(keyarr: [String!]): GuaSet!
   area(code: String!): [String!]!
   phone(num: String): CPhone!
 }

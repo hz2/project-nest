@@ -8,7 +8,7 @@ import { Not, Repository } from 'typeorm';
 import { NewCountryInput } from './dto/new-country.input';
 import { Country } from './entities/country';
 import { Xzqh } from './entities/xzqh';
-import { Gua } from './entities/gua';
+import { Gua, GuaSet } from './entities/gua';
 import { Phone, CPhone } from "./entities/phone";
 
 
@@ -36,13 +36,22 @@ export class LabService {
     return r;
   }
 
+
+
   // gua
-  public async findGua(keyarr?: string[]): Promise<Gua[]> {
+  public async findGua(keyarr?: string[]): Promise<GuaSet> {
     const r = await this.guaRepository.find({
       where: keyarr.map(x => ({ key: x }))
     })
     if (!r) throw new NotFoundException();
-    return r;
+
+
+
+    const guaSet:GuaSet = Object.fromEntries(keyarr.map((x, i) => [r[i].key, { ...r[i] }]))
+
+
+    console.log('r', guaSet);
+    return guaSet;
   }
 
 

@@ -53,3 +53,13 @@ export class Gua {
   remark: string;
 
 }
+
+@ObjectType({ description: 'guaset' })
+export class GuaSet {
+  @Field(type => Gua)
+  color?: Gua;
+
+  @Field(type => Gua)
+  text?: Gua;
+
+}
