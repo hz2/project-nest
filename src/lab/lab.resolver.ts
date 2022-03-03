@@ -38,6 +38,13 @@ export class LabResolver {
     });
   }
 
+  @Query(() => Gua)
+  public async gua1(@Args('key', { nullable: true }) key?: string): Promise<Gua> {
+    return await this.LabService.findOneGua(key).catch((err) => {
+      throw err;
+    });
+  }
+
   @Query(() => [String])
   public async area(@Args('code') code: string): Promise<string[]> {
     return await this.LabService.getAreaByCode(code).catch((err) => {

@@ -44,14 +44,18 @@ export class LabService {
       where: keyarr.map(x => ({ key: x }))
     })
     if (!r) throw new NotFoundException();
-
-
-
-    const guaSet:GuaSet = Object.fromEntries(keyarr.map((x, i) => [r[i].key, { ...r[i] }]))
-
-
-    console.log('r', guaSet);
+    const guaSet: GuaSet = Object.fromEntries(keyarr.map((x, i) => [r[i].key, { ...r[i] }]))
     return guaSet;
+  }
+
+  public async findOneGua(key?: string): Promise<Gua> {
+    const r = await this.guaRepository.find({
+      key
+    })
+    if (!r) throw new NotFoundException();
+    console.log('r', r);
+
+    return r[0];
   }
 
 
