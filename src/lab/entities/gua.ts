@@ -53,3 +53,18 @@ export class Gua {
   remark: string;
 
 }
+
+
+
+@ObjectType({ description: 'guaset' })
+export abstract class  GuaSet {
+
+  @Field(() => Gua , { nullable: true })
+  color?: Gua;
+  // @Field(type => Gua)
+  // color?: Gua;
+
+  // @Field(type => Gua)
+  // text?: Gua;
+
+}
