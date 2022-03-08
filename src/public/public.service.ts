@@ -1,11 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Connection, Repository } from 'typeorm';
 import { CreatePublicDto } from './dto/create-public.dto';
 import { UpdatePublicDto } from './dto/update-public.dto';
+import { Public } from "./entities/public.entity"
 
 @Injectable()
 export class PublicService {
+  constructor(
+    @InjectRepository(Public)
+    private publicRepository: Repository<Public>,
+    private connection: Connection
+  ) { }
+
   create(createPublicDto: CreatePublicDto) {
-    return 'This action adds a new public';
+    if ( ! createPublicDto.content ) {
+      return `content 必填`
+    }
+    try {
+      this.publicRepository.save(createPublicDto);
+      return '成功！'
+    } catch (error) {
+      
+    }
   }
 
   findAll() {

@@ -1,1 +1,3 @@
-export class CreatePublicDto {}
+export class CreatePublicDto {
+  [x: string]: any;
+}
