@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { CreatePublicDto } from './dto/create-public.dto';
@@ -15,7 +15,10 @@ export class PublicService {
 
   create(createPublicDto: CreatePublicDto) {
     if ( ! createPublicDto.content ) {
-      return `content 必填`
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: `content 必填`,
+      }, HttpStatus.BAD_REQUEST);
     }
     try {
       this.publicRepository.save(createPublicDto);
