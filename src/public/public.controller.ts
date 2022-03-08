@@ -7,7 +7,7 @@ import { UpdatePublicDto } from './dto/update-public.dto';
 export class PublicController {
   constructor(private readonly publicService: PublicService) {}
 
-  @Post()
+  @Post('/feedback')
   create(@Body() createPublicDto: CreatePublicDto) {
     return this.publicService.create(createPublicDto);
   }
