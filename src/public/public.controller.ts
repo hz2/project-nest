@@ -1,15 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Headers, Ip, Body, Patch, Param, Delete } from '@nestjs/common';
 import { PublicService } from './public.service';
 import { CreatePublicDto } from './dto/create-public.dto';
 import { UpdatePublicDto } from './dto/update-public.dto';
 
 @Controller('public')
 export class PublicController {
-  constructor(private readonly publicService: PublicService) {}
+  constructor(private readonly publicService: PublicService) { }
 
   @Post('/feedback')
-  create(@Body() createPublicDto: CreatePublicDto) {
-    return this.publicService.create(createPublicDto);
+  create(@Body() createPublicDto: CreatePublicDto, @Headers() header: Headers, @Ip() ip: string) {
+    return this.publicService.create(createPublicDto, header, ip);
   }
 
   @Get()

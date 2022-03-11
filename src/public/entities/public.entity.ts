@@ -18,7 +18,7 @@ export class Public {
     email: string;
 
     @Column({ default: ''})
-    useragent: string;
+    userAgent: string;
 
     @Column({ default: ''})
     ip: string;
