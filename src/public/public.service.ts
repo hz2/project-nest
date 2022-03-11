@@ -13,18 +13,22 @@ export class PublicService {
     private connection: Connection
   ) { }
 
-  create(createPublicDto: CreatePublicDto) {
-    if ( ! createPublicDto.content ) {
+  create(createPublicDto: CreatePublicDto, header: Headers, ip: string) {
+    if (!createPublicDto.content) {
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
         error: `content 必填`,
       }, HttpStatus.BAD_REQUEST);
     }
     try {
-      this.publicRepository.save(createPublicDto);
+      this.publicRepository.save({
+        ...createPublicDto,
+        userAgent: header['user-agent'],
+        ip
+      });
       return '成功！'
     } catch (error) {
-      
+
     }
   }
 
