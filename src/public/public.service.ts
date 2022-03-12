@@ -33,11 +33,11 @@ export class PublicService {
   }
 
   findAll() {
-    return `This action returns all public`;
+    return this.publicRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} public`;
+    return this.publicRepository.findOne(id);
   }
 
   update(id: number, updatePublicDto: UpdatePublicDto) {
