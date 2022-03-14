@@ -12,9 +12,9 @@ export class PublicController {
     return this.publicService.create(createPublicDto, header, ip);
   }
 
-  @Get()
-  findAll() {
-    return this.publicService.findAll();
+  @Get('/getFeedBackList')
+  findAll(@Param() param) {
+    return this.publicService.findAll(param);
   }
 
   @Get(':id')

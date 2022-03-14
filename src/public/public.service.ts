@@ -32,8 +32,8 @@ export class PublicService {
     }
   }
 
-  findAll() {
-    return this.publicRepository.find();
+  findAll(param) {
+    return this.publicRepository.find(param);
   }
 
   findOne(id: number) {
