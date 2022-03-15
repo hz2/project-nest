@@ -20,6 +20,9 @@ export class PublicService {
         error: `content 必填`,
       }, HttpStatus.BAD_REQUEST);
     }
+
+console.log('header===> ', header )
+
     try {
       this.publicRepository.save({
         ...createPublicDto,
