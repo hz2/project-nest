@@ -20,14 +20,17 @@ export class PublicService {
         error: `content 必填`,
       }, HttpStatus.BAD_REQUEST);
     }
-
-console.log('header===> ', header )
-
+    let realip = '';
+    if ( ip === '127.0.0.1') {
+      realip = header['x-real-ip']
+    } else {
+      realip = ip
+    }
     try {
       this.publicRepository.save({
         ...createPublicDto,
         userAgent: header['user-agent'],
-        ip
+        ip: realip
       });
       return '成功！'
     } catch (error) {
