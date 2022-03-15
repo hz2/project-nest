@@ -20,6 +20,9 @@ export class PublicService {
         error: `content 必填`,
       }, HttpStatus.BAD_REQUEST);
     }
+
+console.log('header===> ', header )
+
     try {
       this.publicRepository.save({
         ...createPublicDto,
@@ -32,8 +35,8 @@ export class PublicService {
     }
   }
 
-  findAll() {
-    return this.publicRepository.find();
+  findAll(param) {
+    return this.publicRepository.find(param);
   }
 
   findOne(id: number) {
