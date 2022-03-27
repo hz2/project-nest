@@ -1,4 +1,4 @@
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, Post, UseGuards, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
@@ -10,6 +10,7 @@ export class AppController {
     private readonly authService: AuthService) { }
 
   @Get()
+  @Redirect('https://0xc8.com', 301)
   getHello(): string {
     return this.appService.getHello();
   }

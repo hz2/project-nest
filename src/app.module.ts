@@ -13,6 +13,7 @@ import { LabModule } from './lab/lab.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PublicModule } from './public/public.module';
+import { MenuModule } from './sys/menu/menu.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { PublicModule } from './public/public.module';
     AuthModule,
     UsersModule,
     PublicModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],
