@@ -22,6 +22,11 @@ export class MenuController {
     return this.menuService.findAll();
   }
 
+  @Get('/tree')
+  findAllTree() {
+    return this.menuService.findAllTree();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.menuService.findOne(+id);
