@@ -15,6 +15,11 @@ import { UsersModule } from './users/users.module';
 import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
 
+
+import { Admin } from "./admin.entity";
+import {JwtModule} from "@nestjs/jwt";
+
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -38,6 +43,11 @@ import { MenuModule } from './sys/menu/menu.module';
     UsersModule,
     PublicModule,
     MenuModule,
+    TypeOrmModule.forFeature([Admin]),
+    JwtModule.register({
+        secret: 'secret',
+        signOptions: {expiresIn: '1d'}
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
