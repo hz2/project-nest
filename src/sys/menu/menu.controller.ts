@@ -5,7 +5,7 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('menu')
+@Controller('sys/menu')
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 

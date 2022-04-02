@@ -2,8 +2,6 @@ import { BadRequestException, Body, Controller, Get, Post, Request, Req, Res, Un
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
-
-
 import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
 import { Response, Request as RequestExpress } from 'express';
@@ -24,11 +22,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @UseGuards(AuthGuard('local'))
-  @Post('auth/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
-  }
+  // @UseGuards(AuthGuard('local'))
+  // @Post('auth/login')
+  // async login(@Request() req) {
+  //   return this.authService.login(req.user);
+  // }
 
 
   @UseGuards(AuthGuard('jwt'))
@@ -37,24 +35,24 @@ export class AppController {
     return req.user;
   }
 
-  @Post('register')
-  async register(
-    @Body('name') name: string,
-    @Body('email') email: string,
-    @Body('password') password: string
-  ) {
-    const hashedPassword = await bcrypt.hash(password, 12);
+  // @Post('register')
+  // async register(
+  //   @Body('name') name: string,
+  //   @Body('email') email: string,
+  //   @Body('password') password: string
+  // ) {
+  //   const hashedPassword = await bcrypt.hash(password, 12);
 
-    const user = await this.appService.create({
-      name,
-      email,
-      password: hashedPassword
-    });
+  //   const user = await this.appService.create({
+  //     name,
+  //     email,
+  //     password: hashedPassword
+  //   });
 
-    delete user.password;
+  //   delete user.password;
 
-    return user;
-  }
+  //   return user;
+  // }
 
   @Post('login')
   async sysLogin(
@@ -71,12 +69,10 @@ export class AppController {
     if (!await bcrypt.compare(password, user.password)) {
       throw new BadRequestException('invalid credentials');
     }
-
-    const jwt = await this.jwtService.signAsync({ id: user.id });
-
-    response.cookie('jwt', jwt, { httpOnly: true });
-
+    const jwt = await this.jwtService.signAsync({ email: user.email, id: user.id });
+    response.cookie('jwt_0xc8_app', jwt, { httpOnly: true });
     return {
+      access_token: jwt,
       message: 'success'
     };
   }
