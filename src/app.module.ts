@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions, Connection } from 'typeorm';
 import { AppController } from './app.controller';
@@ -17,19 +18,21 @@ import { MenuModule } from './sys/menu/menu.module';
 
 
 import { Admin } from "./admin.entity";
-import {JwtModule} from "@nestjs/jwt";
+import { JwtModule } from "@nestjs/jwt";
 
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: [`.env.${process.env.NODE_ENV}`],
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: async () =>
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
-    }), UserModule, ChatModule ,
-  
-  
+    }), UserModule, ChatModule,
+    
     // RecipesModule,
     // GraphModule,
     GraphQLModule.forRoot({
@@ -45,8 +48,8 @@ import {JwtModule} from "@nestjs/jwt";
     MenuModule,
     TypeOrmModule.forFeature([Admin]),
     JwtModule.register({
-        secret: 'secret',
-        signOptions: {expiresIn: '1d'}
+      secret: 'secret',
+      signOptions: { expiresIn: '1d' }
     })
   ],
   controllers: [AppController],
