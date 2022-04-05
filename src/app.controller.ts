@@ -1,7 +1,6 @@
 import { BadRequestException, Body, Controller, Get, Post, Request, Req, Res, UnauthorizedException, UseGuards, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from './auth/auth.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
 import { Response, Request as RequestExpress } from 'express';
@@ -11,7 +10,6 @@ import { Response, Request as RequestExpress } from 'express';
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly authService: AuthService,
     private jwtService: JwtService
 
   ) { }
