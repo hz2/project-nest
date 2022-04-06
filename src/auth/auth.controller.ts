@@ -1,5 +1,5 @@
-import { BadRequestException, Body, Controller, Get, Post, Request, Req, Res, UnauthorizedException, UseGuards, Redirect } from '@nestjs/common';
-import { AppService } from './app.service';
+import { BadRequestException, Body, Controller, Get, Post, Request, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
@@ -9,16 +9,10 @@ import { Response, Request as RequestExpress } from 'express';
 @Controller('api')
 export class AppController {
   constructor(
-    private readonly appService: AppService,
+    private readonly authService: AuthService,
     private jwtService: JwtService
 
   ) { }
-
-  @Get()
-  @Redirect('https://0xc8.com', 301)
-  getHello(): string {
-    return this.appService.getHello();
-  }
 
   // @UseGuards(AuthGuard('local'))
   // @Post('auth/login')
@@ -58,7 +52,7 @@ export class AppController {
     @Body('password') password: string,
     @Res({ passthrough: true }) response: Response
   ) {
-    const user = await this.appService.findOne({ email });
+    const user = await this.authService.findOne({ email });
 
     if (!user) {
       throw new BadRequestException('invalid credentials');
@@ -86,7 +80,7 @@ export class AppController {
         throw new UnauthorizedException();
       }
 
-      const user = await this.appService.findOne({ id: data['id'] });
+      const user = await this.authService.findOne({ id: data['id'] });
 
       const { password, ...result } = user;
 
