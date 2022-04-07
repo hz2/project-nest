@@ -11,14 +11,12 @@ import { GraphQLModule } from '@nestjs/graphql';
 // import { RecipesModule } from './recipes/recipes.module';
 // import { GraphModule } from './graph/graph.module';
 import { LabModule } from './lab/lab.module';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+// import { AuthModule } from './auth/auth.module';
 import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
+import { MinioClientModule } from './minio-client/minio-client.module';
 
 
-import { Admin } from "./admin.entity";
-import { JwtModule } from "@nestjs/jwt";
 
 
 @Module({
@@ -42,15 +40,10 @@ import { JwtModule } from "@nestjs/jwt";
       autoSchemaFile: 'schema.gql',
     }),
     LabModule,
-    AuthModule,
-    UsersModule,
+    // AuthModule,
     PublicModule,
     MenuModule,
-    TypeOrmModule.forFeature([Admin]),
-    JwtModule.register({
-      secret: 'secret',
-      signOptions: { expiresIn: '1d' }
-    })
+    MinioClientModule
   ],
   controllers: [AppController],
   providers: [AppService],
