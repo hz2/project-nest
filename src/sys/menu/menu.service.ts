@@ -5,6 +5,10 @@ import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
 
+var Minio = require('minio')
+
+
+
 type MenuWithChild = Menu & {
   children?: MenuWithChild[]
 }
@@ -49,5 +53,38 @@ export class MenuService {
 
   remove(id: number) {
     return `This action removes a #${id} menu`;
+  }
+
+  upload(){
+
+    var minioClient = new Minio.Client({
+      endPoint: '0xc8.com',
+      port: 9001,
+      useSSL: true,
+      accessKey: 'h__',
+      secretKey: 'CvufvYwuBc2kA8e'
+  });
+
+  var file = './public.subscriber.ts'
+
+  // Make a bucket called europetrip.
+  minioClient.makeBucket('europetrip', 'us-east-1', function(err) {
+      if (err) return console.log(err)
+  
+      console.log('Bucket created successfully in "us-east-1".')
+  
+      var metaData = {
+          'Content-Type': 'application/octet-stream',
+          'X-Amz-Meta-Testing': 1234,
+          'example': 5678
+      }
+      // Using fPutObject API upload your file to the bucket europetrip.
+      minioClient.fPutObject('europetrip', 'photos-europe.tar', file, metaData, function(err, etag) {
+        if (err) return console.log(err)
+        console.log('File uploaded successfully.')
+      });
+  });
+
+    
   }
 }
