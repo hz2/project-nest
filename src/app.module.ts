@@ -14,6 +14,7 @@ import { LabModule } from './lab/lab.module';
 // import { AuthModule } from './auth/auth.module';
 import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
+import { MinioClientModule } from './minio-client/minio-client.module';
 
 
 
@@ -41,7 +42,8 @@ import { MenuModule } from './sys/menu/menu.module';
     LabModule,
     // AuthModule,
     PublicModule,
-    MenuModule
+    MenuModule,
+    MinioClientModule
   ],
   controllers: [AppController],
   providers: [AppService],
