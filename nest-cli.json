@@ -2,7 +2,11 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": ["**/*.db"],
-    "watchAssets": true
+    "assets": [{
+      "include": "**/*.db",
+      "input": "src/",
+      "outDir": "dist/src/",
+      "watchAssets": true
+    }]
   }
 }
