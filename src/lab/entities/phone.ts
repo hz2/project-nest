@@ -1,10 +1,11 @@
 
 import { Field, ObjectType } from '@nestjs/graphql';
+// import file from "@/db/phone.db";
 
 const fs = require('fs')
 const path = require('path')
 
-const file = path.resolve(__dirname, './phone.db')
+const file = path.resolve(__dirname, '../db/phone.db')
 
 const buf = fs.readFileSync(file)
 const indexOffset = buf.readInt32LE(4, 4)
