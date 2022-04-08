@@ -5,7 +5,7 @@ ENV NODE_ENV build
 # for debian
 # RUN apk --no-cache add python3 make
 # for alpine
-RUN apk --no-cache add --virtual builds-deps build-base python3 make
+RUN apk --no-cache add --virtual builds-deps build-base python3
 
 WORKDIR /node
 
