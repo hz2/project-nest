@@ -7,13 +7,18 @@ import { Response, Request as RequestExpress } from 'express';
 
 
 @Controller('api')
-export class AppController {
+export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private jwtService: JwtService
 
   ) { }
 
+
+  getHello(): string {
+    return 'Hello World!';
+  }
+  
   // @UseGuards(AuthGuard('local'))
   // @Post('auth/login')
   // async login(@Request() req) {

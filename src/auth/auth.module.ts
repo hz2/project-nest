@@ -10,13 +10,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    TypeOrmModule.forFeature([Admin]),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1d' },
       // signOptions: { expiresIn: '3600s' },
     }),
     JwtService,
-    TypeOrmModule.forFeature([Admin]),
   ],
   providers: [LocalStrategy, JwtStrategy],
 })

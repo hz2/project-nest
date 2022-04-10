@@ -11,7 +11,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 // import { RecipesModule } from './recipes/recipes.module';
 // import { GraphModule } from './graph/graph.module';
 import { LabModule } from './lab/lab.module';
-// import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
 import { MinioClientModule } from './minio-client/minio-client.module';
@@ -40,7 +40,7 @@ import { MinioClientModule } from './minio-client/minio-client.module';
       autoSchemaFile: 'schema.gql',
     }),
     LabModule,
-    // AuthModule,
+    AuthModule,
     PublicModule,
     MenuModule,
     MinioClientModule
