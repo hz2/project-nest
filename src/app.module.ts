@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
 import { MinioClientModule } from './minio-client/minio-client.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
 
 
 
@@ -43,7 +44,8 @@ import { MinioClientModule } from './minio-client/minio-client.module';
     AuthModule,
     PublicModule,
     MenuModule,
-    MinioClientModule
+    MinioClientModule,
+    FileUploadModule
   ],
   controllers: [AppController],
   providers: [AppService],
