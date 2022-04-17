@@ -22,10 +22,10 @@ FROM node:alpine
 
 ENV NODE_ENV production
 
-WORKDIR /app
+WORKDIR /node
 
-COPY --from=builder /node/*.json /app/
-COPY --from=builder /node/node_modules/ /app/node_modules/
-COPY --from=builder /node/dist/ /app/dist/
+COPY --from=builder /node/*.json /node/
+COPY --from=builder /node/node_modules/ /node/node_modules/
+COPY --from=builder /node/dist/ /node/dist/
 
 CMD ["node", "dist/main"]
