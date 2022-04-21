@@ -11,6 +11,8 @@ WORKDIR /node
 
 COPY . /node
 
+RUN ls -al ./src/lab/db
+
 RUN npm ci \
     && npm rebuild bcrypt --build-from-source \
     && npm run build \
