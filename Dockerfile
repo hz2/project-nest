@@ -14,7 +14,8 @@ COPY . /node
 RUN npm ci \
     && npm rebuild bcrypt --build-from-source \
     && npm run build \
-    && npm prune --production
+    && npm prune --production \
+    && ls -al ./dist/src/lab/db
 
 # Copy the build output to the host
 
@@ -27,6 +28,7 @@ WORKDIR /node
 COPY --from=builder /node/*.json /node/
 COPY --from=builder /node/node_modules/ /node/node_modules/
 COPY --from=builder /node/dist/ /node/dist/
+RUN ls -al /node/dist/src/lab/db
 
 CMD ["node", "dist/src/main"]
 
