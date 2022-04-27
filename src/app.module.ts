@@ -30,8 +30,9 @@ import { FileUploadModule } from './file-upload/file-upload.module';
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
-    }), UserModule, ChatModule,
-    
+    }),
+    UserModule,
+    ChatModule,    
     // RecipesModule,
     // GraphModule,
     GraphQLModule.forRoot({
