@@ -12,9 +12,9 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExecptionFilter())
   app.use(cookieParser());
   app.enableCors({
-    origin: process.env.APP_URL ,
+    origin: process.env.APP_URL,
     credentials: true
-});
+  });
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

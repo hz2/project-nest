@@ -5,7 +5,7 @@ export class AppService {
   constructor() { }
 
   @Get()
-  @Redirect('https://0xc8.com', 301)
+  @Redirect( process.env.APP_URL , 301)
   getHello(): string {
     return 'Hello World!';
   }
