@@ -22,22 +22,25 @@ export class MinioClientService {
     }
 
     public async upload(file: BufferedFile, baseBucket: string = this.baseBucket) {
-        if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
-            throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
-        }
+        // if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
+        //     throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
+        // }
         let temp_filename = Date.now().toString()
         let hashedFileName = crypto.createHash('md5').update(temp_filename).digest("hex");
         let ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
         const metaData = {
             'Content-Type': file.mimetype,
-            'X-Amz-Meta-Testing': 1234,
+            // 'X-Amz-Meta-Testing': 1234,
         };
         let filename = hashedFileName + ext
         const fileName: string = `pim-storage/${filename}`;
         const fileBuffer = file.buffer;
         // metaData
-        this.client.putObject(baseBucket, fileName, fileBuffer, metaData).catch(err => {
-            if (err) throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
+        await this.client.putObject(baseBucket, fileName, fileBuffer, metaData).catch(err => {
+            if (err) {
+                console.log('e', err);
+                throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST)
+            }
         })
         return {
             url: `${pubLink}/${baseBucket}/${fileName}`

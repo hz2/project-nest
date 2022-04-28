@@ -13,6 +13,8 @@ export class FileUploadService {
 
     let uploaded_image = await this.minioClientService.upload(image)
 
+    console.log('uploaded_image', uploaded_image );
+    
     return {
       image_url: uploaded_image.url,
       message: "Successfully uploaded"
