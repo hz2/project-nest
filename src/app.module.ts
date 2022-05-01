@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions, Connection } from 'typeorm';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 // import { GraphModule } from './graph/graph.module';
 import { ChatModule } from './chat/chat.module';
@@ -16,8 +15,6 @@ import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
 import { MinioClientModule } from './minio-client/minio-client.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
-
-
 
 
 @Module({
@@ -48,8 +45,7 @@ import { FileUploadModule } from './file-upload/file-upload.module';
     MinioClientModule,
     FileUploadModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController]
 })
 export class AppModule {
   constructor(private connection: Connection) { }
