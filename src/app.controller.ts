@@ -4,8 +4,8 @@ import { Controller, Get, Header, Redirect } from '@nestjs/common';
 export class AppController {
 
   @Get()
-  @Redirect( process.env.APP_URL , 301)
+  // @Redirect( process.env.APP_URL , 301)
   index(): string {
-    return 'home page';
+    return process.env.APP_URL;
   }
 }
