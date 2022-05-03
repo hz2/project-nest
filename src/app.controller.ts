@@ -1,16 +1,11 @@
-import { Controller, Get, Redirect } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Header, Redirect } from '@nestjs/common';
 
-@Controller('api')
+@Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService
-
-  ) { }
 
   @Get()
-  @Redirect('https://0xc8.com', 301)
-  getHello(): string {
-    return this.appService.getHello();
+  // @Redirect( process.env.APP_URL , 301)
+  index(): string {
+    return process.env.APP_URL;
   }
 }
