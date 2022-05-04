@@ -31,6 +31,10 @@ export class AuthService {
     return this.adminRepository.save(data);
   }
 
+  async update(data: any): Promise<Admin> {
+    return this.adminRepository.save(data);
+  }
+
   async findOne(condition: any): Promise<Admin> {
     return this.adminRepository.findOne(condition);
   }

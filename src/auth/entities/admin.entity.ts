@@ -26,9 +26,12 @@ export class Admin {
     @Column()
     sex: string;
 
-    @Column()
+    @Column({
+        type: 'datetime',
+        nullable: true,
+      })
     birthday: Date;
 
     @Column()
-    address: Date;
+    address: string;
 }

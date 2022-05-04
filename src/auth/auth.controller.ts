@@ -6,7 +6,7 @@ import { JwtService } from "@nestjs/jwt";
 import { Response, Request as RequestExpress } from 'express';
 
 
-@Controller('api')
+@Controller('api/admin')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -93,6 +93,12 @@ export class AuthController {
     } catch (e) {
       throw new UnauthorizedException();
     }
+  }
+
+  @Post('update')
+  async update(@Req() request: RequestExpress) {
+      const user = await this.authService.create(request);
+      return user;
   }
 
   @Post('logout')
