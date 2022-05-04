@@ -12,5 +12,23 @@ export class Admin {
     email: string;
 
     @Column()
+    username: string;
+
+    @Column()
     password: string;
+
+    @Column()
+    avatar: string;
+
+    @Column()
+    mobile: string;
+
+    @Column()
+    sex: string;
+
+    @Column()
+    birthday: Date;
+
+    @Column()
+    address: Date;
 }
