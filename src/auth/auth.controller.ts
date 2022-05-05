@@ -4,6 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
 import { Response, Request as RequestExpress } from 'express';
+import { Admin } from './entities/admin.entity';
 
 
 @Controller('api/admin')
@@ -18,7 +19,7 @@ export class AuthController {
   getHello(): string {
     return 'Hello World!';
   }
-  
+
   // @UseGuards(AuthGuard('local'))
   // @Post('auth/login')
   // async login(@Request() req) {
@@ -77,7 +78,7 @@ export class AuthController {
   @Get('user')
   async user(@Req() request: RequestExpress) {
     try {
-      const cookie = request.cookies['jwt'];
+      const cookie = request.cookies['jwt_0xc8_app'];
 
       const data = await this.jwtService.verifyAsync(cookie);
 
@@ -96,9 +97,14 @@ export class AuthController {
   }
 
   @Post('update')
-  async update(@Req() request: RequestExpress) {
-      const user = await this.authService.create(request);
-      return user;
+  async update(@Body() body: Admin, @Req() request: RequestExpress) {
+    try {
+      await this.authService.update(body);
+      return await this.user(request);
+    } catch (e) {
+      console.log('update user err ', e);
+      throw new UnauthorizedException();
+    }
   }
 
   @Post('logout')
