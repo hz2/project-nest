@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 // import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Admin } from "./entities/admin.entity";
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 
 @Injectable()
 export class AuthService {
@@ -29,6 +29,15 @@ export class AuthService {
   // }
   async create(data: any): Promise<Admin> {
     return this.adminRepository.save(data);
+  }
+
+  async update(data: Admin): Promise<UpdateResult> {
+    try {
+      const { id, email, username, ...rest } = data
+      return this.adminRepository.update(id, rest);
+    } catch (e) {
+      console.log('update err ', data);
+    }
   }
 
   async findOne(condition: any): Promise<Admin> {
