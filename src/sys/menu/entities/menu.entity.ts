@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Menu {
@@ -28,4 +28,13 @@ export class Menu {
 
     @Column({ default: 0 })
     sort: number;
+
+    @CreateDateColumn()
+    created!: Date;
+
+    @UpdateDateColumn()
+    updated!: Date;
+
+    @DeleteDateColumn()
+    deletedAt?: Date;
 }
