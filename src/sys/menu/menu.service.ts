@@ -1,13 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
+import { Connection, Repository, TreeRepository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
-
-var Minio = require('minio')
-
-
 
 type MenuWithChild = Menu & {
   children?: MenuWithChild[]
@@ -17,6 +13,7 @@ export class MenuService {
   constructor(
     @InjectRepository(Menu)
     private menuRepository: Repository<Menu>,
+    private menuRepositoryTree: TreeRepository<Menu>,
     private connection: Connection
   ) { }
 
@@ -37,10 +34,15 @@ export class MenuService {
   }
 
   async findAllTree() {
-    const menuAll: MenuWithChild[] = await this.menuRepository.find();
-    const menuChildrenList = [... new Set(menuAll.map((x: Menu) => x.parentId))]
-    menuAll.forEach(x => { menuChildrenList.includes(x.id) ? x.children = menuAll.filter(y => y.parentId === x.id) : void 0 })
-    return menuAll.filter(x=>x.parentId===0)
+    return ''
+  //   const menuAll: MenuWithChild[] = await this.menuRepository.find();
+  //   const menuChildrenList = [... new Set(menuAll.map((x: Menu) => x.parentId))]
+  //   menuAll.forEach(x => { menuChildrenList.includes(x.id) ? x.children = menuAll.filter(y => y.parentId === x.id) : void 0 })
+  //   return menuAll.filter(x=>x.parentId===0)
+  }
+
+  async tree() {
+    return  await this.menuRepositoryTree.findTrees()
   }
 
   findOne(id: number) {

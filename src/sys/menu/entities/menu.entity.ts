@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Menu {
@@ -28,6 +28,12 @@ export class Menu {
 
     @Column({ default: 0 })
     sort: number;
+
+    @ManyToOne((_type) => Menu, (m) => m.children)
+    parent: Menu
+
+    @OneToMany((_type) => Menu, (m) => m.parent)
+    children: Menu[]
 
     @CreateDateColumn()
     created!: Date;
