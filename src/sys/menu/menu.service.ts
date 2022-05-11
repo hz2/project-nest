@@ -13,6 +13,7 @@ export class MenuService {
   constructor(
     @InjectRepository(Menu)
     private menuRepository: Repository<Menu>,
+    @InjectRepository(Menu)
     private menuRepositoryTree: TreeRepository<Menu>,
     private connection: Connection
   ) { }
