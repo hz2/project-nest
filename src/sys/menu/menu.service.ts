@@ -25,25 +25,28 @@ export class MenuService {
         error: `必填`,
       }, HttpStatus.BAD_REQUEST);
     }
-    this.menuRepository.save({
+    this.menuRepository.save(Object.assign({
+      parentId: 1,
+    }, {
       ...createMenuDto
-    });
+    }));
   }
 
-  findAll() {
-    return this.menuRepository.find();
+  async findAll() {
+    const r = await this.menuRepository.find();
+    return r
   }
 
   async findAllTree() {
-    return ''
-  //   const menuAll: MenuWithChild[] = await this.menuRepository.find();
-  //   const menuChildrenList = [... new Set(menuAll.map((x: Menu) => x.parentId))]
-  //   menuAll.forEach(x => { menuChildrenList.includes(x.id) ? x.children = menuAll.filter(y => y.parentId === x.id) : void 0 })
-  //   return menuAll.filter(x=>x.parentId===0)
+    return await this.menuRepositoryTree.findTrees()
+    //   const menuAll: MenuWithChild[] = await this.menuRepository.find();
+    //   const menuChildrenList = [... new Set(menuAll.map((x: Menu) => x.parentId))]
+    //   menuAll.forEach(x => { menuChildrenList.includes(x.id) ? x.children = menuAll.filter(y => y.parentId === x.id) : void 0 })
+    //   return menuAll.filter(x=>x.parentId===0)
   }
 
   async tree() {
-    return  await this.menuRepositoryTree.findTrees()
+    return await this.menuRepositoryTree.findTrees()
   }
 
   findOne(id: number) {
