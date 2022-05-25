@@ -5,6 +5,8 @@ import { Admin as Account } from '@/auth/entities/admin.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
+const filterPwd = ({ password,...item}:Account)=> item;
+
 @Injectable()
 export class AccountService {
   constructor(
@@ -19,11 +21,12 @@ export class AccountService {
 
   async findAll() {
     const r = await this.accountRepository.find();
-    return r
+    return r.map(x=>filterPwd(x))
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
+  async findOne(id: number) {
+    const r = await this.accountRepository.find({id});
+    return filterPwd(r[0])
   }
 
   update(id: number, updateAccountDto: UpdateAccountDto) {
