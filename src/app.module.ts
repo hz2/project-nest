@@ -15,6 +15,7 @@ import { PublicModule } from './public/public.module';
 import { MenuModule } from './sys/menu/menu.module';
 import { MinioClientModule } from './minio-client/minio-client.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
+import { AccountModule } from './sys/account/account.module';
 
 
 @Module({
@@ -43,7 +44,8 @@ import { FileUploadModule } from './file-upload/file-upload.module';
     PublicModule,
     MenuModule,
     MinioClientModule,
-    FileUploadModule
+    FileUploadModule,
+    AccountModule
   ],
   controllers: [AppController]
 })
