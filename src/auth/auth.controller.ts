@@ -27,11 +27,10 @@ export class AuthController {
   // }
 
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
+  // @Get('profile')
+  // getProfile(@Request() req) {
+  //   return req.user;
+  // }
 
   // @Post('register')
   // async register(
@@ -75,7 +74,8 @@ export class AuthController {
     };
   }
 
-  @Get('user')
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
   async user(@Req() request: RequestExpress) {
     const { token } = request.query
     try {
@@ -110,7 +110,7 @@ export class AuthController {
 
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('jwt');
+    response.clearCookie('jwt_0xc8_app');
 
     return {
       message: 'success'
