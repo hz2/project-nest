@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, Tree, TreeParent, TreeChildren } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'm2' })
+@Tree("nested-set")
 export class Menu {
     @PrimaryGeneratedColumn('increment')
     id: number;
@@ -8,13 +9,13 @@ export class Menu {
     @Column()
     text: string;
 
-    @Column()
+    @Column({ default: '' })
     path: string;
 
-    @Column()
+    @Column({ default: '' })
     component?: string;
 
-    @Column()
+    @Column({ default: '' })
     icon: string;
 
     @Column({ default: true })
@@ -29,10 +30,10 @@ export class Menu {
     @Column({ default: 0 })
     sort: number;
 
-    @ManyToOne((_type) => Menu, (m) => m.children)
+    @TreeParent()
     parent: Menu
 
-    @OneToMany((_type) => Menu, (m) => m.parent)
+    @TreeChildren()
     children: Menu[]
 
     @CreateDateColumn()
