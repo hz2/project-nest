@@ -1,8 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, Tree, TreeParent, TreeChildren } from 'typeorm';
 
-@Entity({ name: 'm2' })
+@Entity({ name: 'menu' })
 @Tree("nested-set")
 export class Menu {
+
     @PrimaryGeneratedColumn('increment')
     id: number;
 
@@ -20,9 +21,6 @@ export class Menu {
 
     @Column({ default: true })
     isActive: boolean;
-
-    @Column({ default: 0 })
-    parentId: number;
 
     @Column({ default: 0 })
     type: number;

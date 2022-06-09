@@ -22,10 +22,13 @@ export class MenuService {
     try {
 
       const manager = getManager();
-
+      const [root] = await manager.getTreeRepository(Menu).findRoots()
       const a1 = new Menu()
-      a1.parentId = 1,
-        a1.text = "a1";
+      if (root) {
+        a1.parent = root
+      }
+
+      a1.text = "a1";
       await manager.save(a1);
 
       const a11 = new Menu();
@@ -47,12 +50,27 @@ export class MenuService {
       a112.text = "a112";
       a112.parent = a11;
       await manager.save(a112);
+
+
+
+      const qqqq = new Menu();
+      qqqq.text = "qqqq";
+      qqqq.parent = a11;
+
+      this.menuRepositoryTree.save(qqqq);
+
+
+
+
+
     } catch (error) {
 
       console.log('e', error);
 
 
     }
+
+
 
 
     return
@@ -62,11 +80,11 @@ export class MenuService {
         error: `必填`,
       }, HttpStatus.BAD_REQUEST);
     }
-    this.menuRepository.save(Object.assign({
-      parentId: 1,
-    }, {
-      ...createMenuDto
-    }));
+    // this.menuRepository.save(Object.assign({
+    //   parentId: 1,
+    // }, {
+    //   ...createMenuDto
+    // }));
   }
 
   async findAll() {
@@ -91,6 +109,7 @@ export class MenuService {
 
   async tree() {
     return await this.menuRepositoryTree.findTrees()
+
   }
 
   findOne(id: number) {

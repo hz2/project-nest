@@ -24,7 +24,7 @@ export class MenuController {
 
   @Get('/tree')
   findAllTree() {
-    return this.menuService.findAllTree();
+    return this.menuService.tree();
   }
 
   @Get(':id')
