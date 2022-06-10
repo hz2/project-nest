@@ -15,76 +15,26 @@ export class MenuService {
     private menuRepository: Repository<Menu>,
     @InjectRepository(Menu)
     private menuRepositoryTree: TreeRepository<Menu>,
-    private connection: Connection
+    // private connection: Connection
   ) { }
 
-  async create(createMenuDto: CreateMenuDto) {
+  async create(menuData: Menu) {
     try {
-
+      const { id, ...newMenu } = menuData
+      const pid = newMenu.pid
       const manager = getManager();
-      const [root] = await manager.getTreeRepository(Menu).findRoots()
-      const a1 = new Menu()
-      if (root) {
-        a1.parent = root
+      const parent = await manager.getTreeRepository(Menu).findOne(pid)
+      const m = new Menu();
+      if (parent) {
+        m.parent = parent
       }
-
-      a1.text = "a1";
-      await manager.save(a1);
-
-      const a11 = new Menu();
-      a11.text = "a11";
-      a11.parent = a1;
-      await manager.save(a11);
-
-      const a12 = new Menu();
-      a12.text = "a12";
-      a12.parent = a1;
-      await manager.save(a12);
-
-      const a111 = new Menu();
-      a111.text = "a111";
-      a111.parent = a11;
-      await manager.save(a111);
-
-      const a112 = new Menu();
-      a112.text = "a112";
-      a112.parent = a11;
-      await manager.save(a112);
-
-
-
-      const qqqq = new Menu();
-      qqqq.text = "qqqq";
-      qqqq.parent = a11;
-
-      this.menuRepositoryTree.save(qqqq);
-
-
-
-
-
+      Object.assign(m, newMenu)
+      await manager.save(m);
+      // this.menuRepositoryTree.save(qqqq);
     } catch (error) {
-
       console.log('e', error);
-
-
     }
 
-
-
-
-    return
-    if (!createMenuDto.path) {
-      throw new HttpException({
-        status: HttpStatus.BAD_REQUEST,
-        error: `必填`,
-      }, HttpStatus.BAD_REQUEST);
-    }
-    // this.menuRepository.save(Object.assign({
-    //   parentId: 1,
-    // }, {
-    //   ...createMenuDto
-    // }));
   }
 
   async findAll() {
@@ -100,11 +50,6 @@ export class MenuService {
     } catch (error) {
       console.log('e', error);
     }
-
-    //   const menuAll: MenuWithChild[] = await this.menuRepository.find();
-    //   const menuChildrenList = [... new Set(menuAll.map((x: Menu) => x.parentId))]
-    //   menuAll.forEach(x => { menuChildrenList.includes(x.id) ? x.children = menuAll.filter(y => y.parentId === x.id) : void 0 })
-    //   return menuAll.filter(x=>x.parentId===0)
   }
 
   async tree() {
@@ -120,7 +65,16 @@ export class MenuService {
     return `This action updates a #${id} menu`;
   }
 
-  remove(id: number) {
-    this.menuRepository.softDelete(id);
+  async remove(id: number) {
+    const item = await this.menuRepository.findOne(id);
+    const [_self, children] = await this.menuRepositoryTree.findDescendants(item)
+    if (children) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        message: `请先删除子菜单！`,
+      }, HttpStatus.BAD_REQUEST);
+    } else {
+      this.menuRepository.softDelete(id);
+    }
   }
 }

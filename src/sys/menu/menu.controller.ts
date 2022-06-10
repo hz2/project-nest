@@ -3,6 +3,7 @@ import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Menu } from './entities/menu.entity';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('sys/menu')
@@ -10,11 +11,8 @@ export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   @Post()
-  create(@Body() createMenuDto: CreateMenuDto, @Request() req:Request ) {
-    console.log('req==> ', req.method);
-    
-
-    return this.menuService.create(createMenuDto);
+  create(@Body() Menu: Menu, @Request() req:Request ) {
+    return this.menuService.create(Menu);
   }
 
   @Get()

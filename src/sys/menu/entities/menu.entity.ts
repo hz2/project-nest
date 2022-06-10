@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, Tree, TreeParent, TreeChildren } from 'typeorm';
 
 @Entity({ name: 'menu' })
-@Tree("nested-set")
+@Tree("materialized-path")
 export class Menu {
 
     @PrimaryGeneratedColumn('increment')
@@ -28,6 +28,12 @@ export class Menu {
     @Column({ default: 0 })
     sort: number;
 
+    @Column({
+        default: 0,
+        nullable: true,
+    })
+    pid: number;
+
     @TreeParent()
     parent: Menu
 
@@ -43,3 +49,5 @@ export class Menu {
     @DeleteDateColumn()
     deletedAt?: Date;
 }
+
+
