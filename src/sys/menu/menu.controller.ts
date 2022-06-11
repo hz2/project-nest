@@ -8,10 +8,10 @@ import { Menu } from './entities/menu.entity';
 @UseGuards(AuthGuard('jwt'))
 @Controller('sys/menu')
 export class MenuController {
-  constructor(private readonly menuService: MenuService) {}
+  constructor(private readonly menuService: MenuService) { }
 
   @Post()
-  create(@Body() Menu: Menu, @Request() req:Request ) {
+  create(@Body() Menu: Menu, @Request() req: Request) {
     return this.menuService.create(Menu);
   }
 
@@ -28,11 +28,6 @@ export class MenuController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.menuService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menuService.update(+id, updateMenuDto);
   }
 
   @Delete(':id')

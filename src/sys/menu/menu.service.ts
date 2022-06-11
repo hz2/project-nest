@@ -18,9 +18,8 @@ export class MenuService {
     // private connection: Connection
   ) { }
 
-  async create(menuData: Menu) {
+  async create(newMenu: Menu) {
     try {
-      const { id, ...newMenu } = menuData
       const pid = newMenu.pid
       const manager = getManager();
       const parent = await manager.getTreeRepository(Menu).findOne(pid)
@@ -34,7 +33,6 @@ export class MenuService {
     } catch (error) {
       console.log('e', error);
     }
-
   }
 
   async findAll() {
@@ -59,10 +57,6 @@ export class MenuService {
 
   findOne(id: number) {
     return this.menuRepository.findOne(id);
-  }
-
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
   }
 
   async remove(id: number) {
