@@ -1,11 +1,12 @@
-import { Controller, Get, Header, Redirect } from '@nestjs/common';
+import { Controller, Get, Header, Redirect, Res } from '@nestjs/common';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
-
   @Get()
-  // @Redirect( process.env.APP_URL , 301)
-  index(): string {
-    return process.env.APP_URL;
+  getHello(
+    @Res({ passthrough: true }) response: Response
+  ) {
+    response.redirect(process.env.APP_URL, 301)
   }
 }

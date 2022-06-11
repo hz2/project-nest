@@ -1,27 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, Tree, TreeParent, TreeChildren } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'menu' })
+@Tree("materialized-path")
 export class Menu {
+
     @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
     text: string;
 
-    @Column()
+    @Column({ default: '' })
     path: string;
 
-    @Column()
+    @Column({ default: '' })
     component?: string;
 
-    @Column()
+    @Column({ default: '' })
     icon: string;
 
     @Column({ default: true })
     isActive: boolean;
-
-    @Column({ default: 0 })
-    parentId: number;
 
     @Column({ default: 0 })
     type: number;
@@ -29,10 +28,16 @@ export class Menu {
     @Column({ default: 0 })
     sort: number;
 
-    @ManyToOne((_type) => Menu, (m) => m.children)
+    @Column({
+        default: 0,
+        nullable: true,
+    })
+    pid: number;
+
+    @TreeParent()
     parent: Menu
 
-    @OneToMany((_type) => Menu, (m) => m.parent)
+    @TreeChildren()
     children: Menu[]
 
     @CreateDateColumn()
@@ -44,3 +49,5 @@ export class Menu {
     @DeleteDateColumn()
     deletedAt?: Date;
 }
+
+
