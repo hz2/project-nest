@@ -14,6 +14,11 @@ export class Post {
     @Column()
     tags: string;
 
+    @Column({
+        type: "longtext"
+    })
+    content: string;
+
     @CreateDateColumn()
     created!: Date;
 
