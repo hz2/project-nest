@@ -19,11 +19,24 @@ export class PostService {
 
   async findAll() {
     const r = await this.postRepository.find();
-    return r
+    return r.map(x=>{
+      let content = x.content || ''
+      if ( content.includes('<!--more-->') ) {
+        content = content.split('<!--more-->')[0].replace(/\n+$/g,'')
+      } else {
+        content = content.substring(0,60) + '...'
+      }
+      return {
+        ...x,
+        content
+
+      }
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number) {
+    const r = await this.postRepository.find({id})[0]
+    return r
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
