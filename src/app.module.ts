@@ -18,6 +18,8 @@ import { FileUploadModule } from './file-upload/file-upload.module';
 import { AccountModule } from './sys/account/account.module';
 import { PostModule } from './sys/post/post.module';
 
+// const allowList = process.env.APP_URL_ALLOW.split(', ')
+
 
 @Module({
   imports: [
@@ -39,6 +41,10 @@ import { PostModule } from './sys/post/post.module';
       debug: process.env.NODE_ENV === 'development' ? true : false,
       // installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
+      // cors: {
+      //   origin: process.env.APP_URL,
+      //   credentials: true,
+      // },
     }),
     LabModule,
     AuthModule,
