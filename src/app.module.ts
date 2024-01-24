@@ -17,6 +17,7 @@ import { MinioClientModule } from './minio-client/minio-client.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { AccountModule } from './sys/account/account.module';
 import { PostModule } from './sys/post/post.module';
+import { DatahubModule } from './datahub/datahub.module';
 
 // const allowList = process.env.APP_URL_ALLOW.split(', ')
 
@@ -53,7 +54,8 @@ import { PostModule } from './sys/post/post.module';
     MinioClientModule,
     FileUploadModule,
     AccountModule,
-    PostModule
+    PostModule,
+    DatahubModule
   ],
   controllers: [AppController]
 })

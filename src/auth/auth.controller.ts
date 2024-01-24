@@ -67,7 +67,7 @@ export class AuthController {
       throw new BadRequestException('invalid credentials');
     }
     const jwt = await this.jwtService.signAsync({ email: user.email, id: user.id });
-    response.cookie('jwt_0xc8_app', jwt, { maxAge: 86400 * 1000, httpOnly: true, sameSite: 'strict', });
+    response.cookie('jwt_respok_app', jwt, { maxAge: 86400 * 1000, httpOnly: true, sameSite: 'strict', });
     return {
       access_token: jwt,
       message: 'success'
@@ -79,7 +79,7 @@ export class AuthController {
   async user(@Req() request: RequestExpress) {
     const { token } = request.query
     try {
-      const cookie = request.cookies['jwt_0xc8_app'] || token
+      const cookie = request.cookies['jwt_respok_app'] || token
 
       const data = await this.jwtService.verifyAsync(cookie);
 
@@ -110,7 +110,7 @@ export class AuthController {
 
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('jwt_0xc8_app');
+    response.clearCookie('jwt_respok_app');
 
     return {
       message: 'success'
