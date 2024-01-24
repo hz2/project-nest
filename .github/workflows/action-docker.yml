@@ -31,8 +31,8 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: ghcr.io/${{ github.repository }}
-    - run: echo ${{ secrets.ORM_PROD }} | base64 -d | grep "" > ormconfig.json
-    - run: echo ${{ secrets.MINIO_CFG }} | base64 -d | grep "" > minio.config.json
+    # - run: echo ${{ secrets.ORM_PROD }} | base64 -d | grep "" > ormconfig.json
+    # - run: echo ${{ secrets.MINIO_CFG }} | base64 -d | grep "" > minio.config.json
     -
       name: Build and push
       uses: docker/build-push-action@v2

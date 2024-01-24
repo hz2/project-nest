@@ -29,7 +29,9 @@ ENV NODE_ENV production
 
 WORKDIR /node
 
+
 COPY --from=builder /node/*.json /node/
+COPY --from=builder /node/config/*.json /node/
 COPY --from=builder /node/node_modules/ /node/node_modules/
 COPY --from=builder /node/dist/ /node/dist/
 

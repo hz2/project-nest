@@ -33,7 +33,7 @@ export class MinioClientService {
             // 'X-Amz-Meta-Testing': 1234,
         };
         let filename = hashedFileName + ext
-        const fileName: string = `pim-storage/${filename}`;
+        const fileName: string = `web-storage/${filename}`;
         const fileBuffer = file.buffer;
         // metaData
         await this.client.putObject(baseBucket, fileName, fileBuffer, metaData).catch(err => {

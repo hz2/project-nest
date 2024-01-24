@@ -42,10 +42,10 @@ import { DatahubModule } from './datahub/datahub.module';
       debug: process.env.NODE_ENV === 'development' ? true : false,
       // installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
-      // cors: {
-      //   origin: process.env.APP_URL,
-      //   credentials: true,
-      // },
+      cors: {
+        origin: process.env.APP_URL,
+        credentials: true,
+      },
     }),
     LabModule,
     AuthModule,
