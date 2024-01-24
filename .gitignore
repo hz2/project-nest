@@ -36,6 +36,4 @@ lerna-debug.log*
 
 minio.config.ts
 minio.config.json
-
-prod.ormconfig.json
-prod.minio.config.json
+ormconfig.json
